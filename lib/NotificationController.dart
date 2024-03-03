@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 class NotificationController{
+  
   /// Use this method to detect when a new notification or a schedule is created
   @pragma("vm:entry-point")
   static Future <void> onNotificationCreatedMethod(ReceivedNotification receivedNotification) async {
@@ -27,6 +28,24 @@ class NotificationController{
     // MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil('/notification-page',
     //         (route) => (route.settings.name != '/notification-page') || route.isFirst,
     //     arguments: receivedAction);
+  }
+
+  
+  //==========================================RAISING A SIMPLE NOTIFICATION
+  static Future<void> raiseSimpleNotification()async{
+    await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 1, 
+          channelKey: "test_channel", 
+          title: "Hello World",
+          body: "this is test notification",
+        ),
+        schedule: NotificationInterval(
+            interval:5, 
+            timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(), 
+            repeats: true,)
+      
+    );
   }
   
   
